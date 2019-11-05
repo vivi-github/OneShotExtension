@@ -1,12 +1,23 @@
 whale.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getSource") {
       message.innerText = request.source;
+      var str = new String("Hello world");
+      var URLstring = new String(request.source +'');
+
+      getlink.innerHTML = str.link(URLstring);
+
+      whale.downloads.download({
+        url: URLstring+''
+          });
+
+
     }
   });
   
   function onWindowLoad() {
   
     var message = document.querySelector('#message');
+    var getlink = document.querySelector('#getlink');
     whale.tabs.executeScript(null, {
       file: "getPagesSource.js"
     }, function() {
@@ -25,7 +36,7 @@ whale.runtime.onMessage.addListener(function(request, sender) {
 
   });
 
-  
+
 
   
 

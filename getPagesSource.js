@@ -34,9 +34,11 @@ function getURL(document_root){
 
     var URL = '';
     
-    URL += document.getElementsByClassName("se-file-save-button __se_link")[0];
+   // URL += document.getElementsByClassName("se-file-save-button __se_link")[0];
 
+   URL += document.getElementsByClassName("se_name_area __se_toggle_fileList __se_link")[0];
    //URL += document.getElementsByTagName("a")[2];
+
 
     return URL;
 }
