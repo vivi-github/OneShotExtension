@@ -45,10 +45,34 @@ function getURL(document_root){
 
 
 
+function getlongURL(document_root){
+
+    var URL = '';
+
+   // URL += document.getElementsByClassName("se-file-save-button __se_link")[0];
+
+   //URL += document.getElementsById("mainFrame")[0];
+   //URL += document.getElementsByTagName("a")[2];
+
+
+    URL += document.getElementById("mainFrame").src;
+
+    return URL;
+}
+
+
+
+// whale.runtime.sendMessage({
+//     action: "getSource",
+//     //source: DOMtoString(document)
+//     source : getURL(document)
+// });
+
+
 whale.runtime.sendMessage({
-    action: "getSource",
+    action: "getlongURL",
     //source: DOMtoString(document)
-    source : getURL(document)
+    source : getlongURL(document)
 });
 
 
