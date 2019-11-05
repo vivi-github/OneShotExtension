@@ -3,9 +3,9 @@
   "version": "1.0",
   "manifest_version": 2,
   "description": "Get pages source from a popup",
-  "browser_action": {
+  "sidebar_action": {
     "default_icon": "icon.png",
-    "default_popup": "popup.html"
+    "default_page": "popup.html"
   },
   "permissions": [
     "tabs",
@@ -15,6 +15,7 @@
     "https://*/*",
     "activeTab",
     "https://blog.naver.com/",
-    "http://blog.naver.com/"
+    "http://blog.naver.com/",
+    "https://www.naver.com/"
   ]
 }
