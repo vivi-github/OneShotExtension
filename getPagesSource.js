@@ -2,77 +2,100 @@
 // Demo: var serialized_html = DOMtoString(document);
 
 function DOMtoString(document_root) {
-    var html = '',
-        node = document_root.firstChild;
-    while (node) {
-        switch (node.nodeType) {
-        case Node.ELEMENT_NODE:
-            html += node.outerHTML;
-            break;
-        case Node.TEXT_NODE:
-            html += node.nodeValue;
-            break;
-        case Node.CDATA_SECTION_NODE:
-            html += '<![CDATA[' + node.nodeValue + ']]>';
-            break;
-        case Node.COMMENT_NODE:
-            html += '<!--' + node.nodeValue + '-->';
-            break;
-        case Node.DOCUMENT_TYPE_NODE:
-            // (X)HTML documents are identified by public identifiers
-            html += "<!DOCTYPE " + node.name + (node.publicId ? ' PUBLIC "' + node.publicId + '"' : '') + (!node.publicId && node.systemId ? ' SYSTEM' : '') + (node.systemId ? ' "' + node.systemId + '"' : '') + '>\n';
-            break;
-        }
-        node = node.nextSibling;
+  var html = "",
+    node = document_root.firstChild;
+  while (node) {
+    switch (node.nodeType) {
+      case Node.ELEMENT_NODE:
+        html += node.outerHTML;
+        break;
+      case Node.TEXT_NODE:
+        html += node.nodeValue;
+        break;
+      case Node.CDATA_SECTION_NODE:
+        html += "<![CDATA[" + node.nodeValue + "]]>";
+        break;
+      case Node.COMMENT_NODE:
+        html += "<!--" + node.nodeValue + "-->";
+        break;
+      case Node.DOCUMENT_TYPE_NODE:
+        // (X)HTML documents are identified by public identifiers
+        html +=
+          "<!DOCTYPE " +
+          node.name +
+          (node.publicId ? ' PUBLIC "' + node.publicId + '"' : "") +
+          (!node.publicId && node.systemId ? " SYSTEM" : "") +
+          (node.systemId ? ' "' + node.systemId + '"' : "") +
+          ">\n";
+        break;
     }
-    return html;
+    node = node.nextSibling;
+  }
+  return html;
 }
 
+function setlinklist(document) {
+  var div = document.links;
+  var list = Array.prototype.slice.call(div, 0);
 
-
-function getURL(document_root){
-
-    var URL = '';
-    
-   // URL += document.getElementsByClassName("se-file-save-button __se_link")[0];
-
-   URL += document.getElementsByClassName("se_name_area __se_toggle_fileList __se_link")[0];
-   //URL += document.getElementsByTagName("a")[2];
-
-
-    return URL;
+  return list;
 }
 
+function getlinklist(a) {
 
+    var linktemp ='';
+    var comp = 'http://blogattach';
 
-function getlongURL(document_root){
+  for (var i = 0; i < a.length; i++) 
+    {
+        linktemp=a[i]+'';
+        if(linktemp.match(comp))
+        whale.runtime.sendMessage({
+            action: "getSource",
+            source: a[i]+''
+          });
 
-    var URL = '';
-
-   // URL += document.getElementsByClassName("se-file-save-button __se_link")[0];
-
-   //URL += document.getElementsById("mainFrame")[0];
-   //URL += document.getElementsByTagName("a")[2];
-
-
-    URL += document.getElementById("mainFrame").src;
-
-    return URL;
+    }
+  
 }
 
+getlinklist(setlinklist(document));
 
+function getURL(document_root) {
+  var URL = "";
 
-// whale.runtime.sendMessage({
-//     action: "getSource",
-//     //source: DOMtoString(document)
-//     source : getURL(document)
-// });
+  URL += document.getElementsByClassName("se-file-save-button __se_link")[0];
 
+  // for(var i =0; i <  document.links.length ; i++)
+  //    document.write(document.links[i] +"\n");
+
+  //URL += document.getElementsByClassName("se_name_area __se_toggle_fileList __se_link")[0];
+  //URL += document.getElementsByTagName("a")[2];
+
+  return URL;
+}
+
+function getlongURL(document_root) {
+  var URL = "";
+
+  // URL += document.getElementsByClassName("se-file-save-button __se_link")[0];
+
+  //URL += document.getElementsById("mainFrame")[0];
+  //URL += document.getElementsByTagName("a")[2];
+
+  URL += document.getElementById("mainFrame").src;
+
+  return URL;
+}
 
 whale.runtime.sendMessage({
-    action: "getlongURL",
-    //source: DOMtoString(document)
-    source : getlongURL(document)
+  action: "getSource",
+  //source: DOMtoString(document)
+  source: getURL(document)
 });
 
-
+// whale.runtime.sendMessage({
+//     action: "getlongURL",
+//     //source: DOMtoString(document)
+//     source : getlongURL(document)
+// });
